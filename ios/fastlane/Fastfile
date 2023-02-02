@@ -1,0 +1,116 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:ios)
+
+platform :ios do
+  def updateVersion(options)
+    if options[:version]
+      version = options[:version]
+    else
+      version = prompt(text: "Enter the version type or specific version\n(major, minor, patch or 1.0.0): ")
+    end
+
+    re = /\d+.\d+.\d+/
+    versionNum = version[re, 0]
+
+    if (versionNum)
+      increment_version_number(
+        version_number: versionNum
+      )
+    elsif (version == 'major' || version == 'minor' || version == 'patch')
+      increment_version_number(
+        bump_type: version
+      )
+    else
+      UI.user_error!("[ERROR] Wrong version!!!!!!")
+    end
+  end
+
+  desc "Push a new build to the Firebase distribution"
+  lane :distribute do |options|
+    cert
+    sigh(
+      force: true,
+      adhoc: true
+    )
+    updateVersion(options)
+    release_note = prompt(text: "Release note for distribution: ")
+
+    increment_build_number(xcodeproj: "HidApp.xcodeproj")
+    build_app(
+      configuration: "Staging",
+      workspace: "HidApp.xcworkspace",
+      scheme: "HidApp",
+      export_method: "ad-hoc",
+    )
+
+    firebase_app_distribution(
+      app: process.env.app_id,
+      groups: "ques-ios-1",
+      release_notes: "Staging build via fastlane: " + release_note,
+      debug: true
+    )
+  end
+
+  desc "Push a new beta build to the App Store"
+  lane :store do |options|
+    cert
+    sigh(force: true)
+    updateVersion(options)
+
+    increment_build_number(xcodeproj: "HidApp.xcodeproj")
+    build_app(
+      scheme: "Release",
+      workspace: "HidApp.xcworkspace",
+      scheme: "HidApp",
+      export_method: "app-store"
+    )
+    upload_to_testflight
+  end
+
+  # desc "Push a new release build to the App Store"
+  # lane :release do |options|
+  #   cert
+  #   sigh(force: true)
+  #   updateVersion(options)
+
+  #   increment_build_number(xcodeproj: "HidApp.xcodeproj")
+  #   build_app(workspace: "HidApp.xcworkspace", scheme: "HidApp")
+  #   upload_to_app_store(
+  #     force: false,
+  #     reject_if_possible: true,
+  #     skip_metadata: false,
+  #     skip_screenshots: true,
+  #     languages: ['ko'],
+  #     release_notes: {
+  #       # "default" => "bug fixed",
+  #       # "en-US" => "bug fixed",
+  #       # "ja" => "バグ修正",
+  #       "ko" => "버그 수정"
+  #     },
+  #     submit_for_review: true,
+  #     automatic_release: true,
+  #     submission_information: {
+  #       add_id_info_uses_idfa: true,
+  #       add_id_info_serves_ads: true,
+  #       add_id_info_tracks_install: true,
+  #       add_id_info_tracks_action: false,
+  #       add_id_info_limits_tracking: true,
+  #       export_compliance_encryption_updated: false,
+  #     }
+  #   )
+  # end
+end

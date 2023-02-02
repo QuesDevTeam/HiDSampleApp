@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  HidApp
+
+  Created by 나동현 on 2022/06/29.
+  
+*/
+
+"NSCameraUsageDescription" = "HiD would like to access the camera to take a profile image.";
+"NSMicrophoneUsageDescription" = "HiD would like to access the camera to take a profile image.";
+"NSPhotoLibraryAddUsageDescription" = "This lets you upload the image for HiD or save my HiD.";
+"NSPhotoLibraryUsageDescription" = "This lets you upload the image for HiD or save my HiD.";

@@ -1,0 +1,83 @@
+{
+  "env": {
+    "browser": true,
+    "es6": true,
+    "node": true,
+    "mocha": true
+  },
+  "extends": [
+    "airbnb",
+    "airbnb-typescript",
+    "plugin:react/recommended",
+    "plugin:jest/recommended",
+    "plugin:promise/recommended",
+    "plugin:mocha/recommended",
+    "prettier",
+    "@react-native-community",
+    "@typescript-eslint"
+  ],
+  "globals": {
+    "Atomics": "readonly",
+    "SharedArrayBuffer": "readonly"
+  },
+  "parserOptions": {
+    "project": "./tsconfig.json",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "ecmaVersion": 2020,
+    "sourceType": "module"
+  },
+  "plugins": [
+    "react",
+    "prettier",
+    "promise",
+    "jest",
+    "mocha",
+    "@typescript-eslint/recommended",
+    "prettier/@typescript-eslint"
+  ],
+  "rules": {
+    // One true brace style
+    // https://eslint.org/docs/rules/brace-style.html
+    "brace-style": [2, "1tbs", { "allowSingleLine": false }],
+    // Require following curly brace always
+    "curly": ["error", "all"],
+    // Don't use single character naming
+    "id-length": ["error", { "exceptions": ["i", "_"] }],
+    // No method chaining more than 2
+    "newline-per-chained-call": ["error", { "ignoreChainWithDepth": 2 }],
+    "no-multiple-empty-lines": ["error", { "max": 1 }],
+    // Maximum characters per line
+    "max-len": ["error", { "code": 100 }],
+    "no-else-return": "off",
+    "no-use-before-define": "off",
+    "no-console": ["error", { "allow": ["info", "warn", "error"] }],
+    "no-unused-vars": ["error", { "argsIgnorePattern": "^_" }],
+    "no-underscore-dangle": ["error", { "allow": ["_id", "__v", "_gridId"] }],
+    "no-plusplus": "error",
+    "quotes": "off",
+    "promise/always-return": "off",
+    "promise/no-callback-in-promise": "error",
+    "promise/no-nesting": "error",
+    "promise/avoid-new": "error",
+    "react/jsx-filename-extension": "off",
+    "jsx-quotes": ["error", "prefer-single"],
+    "prettier/prettier": "error",
+    "object-curly-newline": "off",
+    "react/jsx-props-no-spreading": "off",
+    "import/prefer-default-export": "off",
+    "jsx-a11y/label-has-for": [
+      2,
+      {
+        "required": {
+          "some": ["nesting", "id"]
+        }
+      }
+    ],
+    "jest/expect-expect": "off",
+    "no-param-reassign": ["error", { "props": true, "ignorePropertyModificationsFor": ["state"] }],
+    "@typescript-eslint/no-use-before-define": "off",
+    "react/prop-types": "off"
+  }
+}

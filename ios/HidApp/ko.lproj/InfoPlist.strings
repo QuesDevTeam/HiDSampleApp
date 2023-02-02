@@ -1,0 +1,12 @@
+/* 
+  InfoPlist.strings
+  HidApp
+
+  Created by 나동현 on 2022/06/29.
+  
+*/
+
+"NSCameraUsageDescription" = "카메라를 사용하여 업로드할 이미지를 촬영합니다.";
+"NSMicrophoneUsageDescription" = "카메라를 사용하여 업로드할 이미지를 촬영합니다.";
+"NSPhotoLibraryAddUsageDescription" = "하이디 카드에 사용할 이미지를 업로드하거나, 내 하이디를 저장합니다.";
+"NSPhotoLibraryUsageDescription" = "하이디 카드에 사용할 이미지를 업로드하거나, 내 하이디를 저장합니다.";
